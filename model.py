@@ -92,6 +92,8 @@ class ValueState(State):
                 return self
             case 'C':
                 self.value = self.value[:-1]
+                if self.value == '':
+                    return InitialState()
                 return self
             case 'AC':
                 return InitialState()
