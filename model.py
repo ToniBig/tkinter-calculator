@@ -132,7 +132,7 @@ class Calculator:
     def on_input(self, input):
         self.state = self.state.on_input(input)
         self.text.set(str(self.state))
-        
+
 
 def main():
     pass
