@@ -6,6 +6,25 @@ from tkinter import ttk
 
 class CalculatorApp():
 
+    def key_pressed(self, event):
+        print(event.keysym)
+        match event.keysym:
+            case 'BackSpace':
+                self.calculator.on_input('C')
+            case 'Escape':
+                self.calculator.on_input('AC')
+            case 'Return':
+                self.calculator.on_input('=')
+            case 'plus':
+                self.calculator.on_input('+')
+            case 'minus':
+                self.calculator.on_input('-')
+            case 'slash':
+                self.calculator.on_input('/')
+            case 'asterisk':
+                self.calculator.on_input('*')
+        self.calculator.on_input(event.keysym)
+
     def __init__(self) -> None:
 
         self.root = Tk()
@@ -15,27 +34,32 @@ class CalculatorApp():
 
         content = ttk.Frame(self.root, padding=(5, 5, 5, 5))
 
-        field = ttk.Entry(content, textvariable=self.text)
+        field = ttk.Entry(content, state="readonly", textvariable=self.text)
+        self.root.bind('<Key>', self.key_pressed)
+
         button_0 = ttk.Button(
-            content, text='0', command=lambda: self.calculator.on_input(0))
+            content, text='0', command=lambda: self.calculator.on_input('0'))
+
         button_1 = ttk.Button(
-            content, text='1', command=lambda: self.calculator.on_input(1))
+            content, text='1', command=lambda: self.calculator.on_input('1'))
+        button_1.grid(column=0, row=3, sticky=(N, S, E, W))
+
         button_2 = ttk.Button(
-            content, text='2', command=lambda: self.calculator.on_input(2))
+            content, text='2', command=lambda: self.calculator.on_input('2'))
         button_3 = ttk.Button(
-            content, text='3', command=lambda: self.calculator.on_input(3))
+            content, text='3', command=lambda: self.calculator.on_input('3'))
         button_4 = ttk.Button(
-            content, text='4', command=lambda: self.calculator.on_input(4))
+            content, text='4', command=lambda: self.calculator.on_input('4'))
         button_5 = ttk.Button(
-            content, text='5', command=lambda: self.calculator.on_input(5))
+            content, text='5', command=lambda: self.calculator.on_input('5'))
         button_6 = ttk.Button(
-            content, text='6', command=lambda: self.calculator.on_input(6))
+            content, text='6', command=lambda: self.calculator.on_input('6'))
         button_7 = ttk.Button(
-            content, text='7', command=lambda: self.calculator.on_input(7))
+            content, text='7', command=lambda: self.calculator.on_input('7'))
         button_8 = ttk.Button(
-            content, text='8', command=lambda: self.calculator.on_input(8))
+            content, text='8', command=lambda: self.calculator.on_input('8'))
         button_9 = ttk.Button(
-            content, text='9', command=lambda: self.calculator.on_input(9))
+            content, text='9', command=lambda: self.calculator.on_input('9'))
         button_clear = ttk.Button(
             content, text='C', command=lambda: self.calculator.on_input('C'))
         button_all_clear = ttk.Button(

@@ -38,13 +38,14 @@ class BinaryOperandState(State):
         match input:
             case 'AC':
                 return InitialState()
-            case 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | '+/-' | '.':
+            case '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '+/-' | '.':
                 self.value_state.on_input(input)
                 return self
             case '+' | '-' | '*' | '/':
                 return UnaryOperandState(input, self.eval())
             case '=':
                 return ValueState(self.eval())
+        return self
 
 
 class UnaryOperandState(State):
@@ -62,7 +63,7 @@ class UnaryOperandState(State):
 
     def on_input(self, input) -> "State":
         match input:
-            case 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9:
+            case '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9':
                 return BinaryOperandState(self, ValueState(input))
             case 'AC':
                 return InitialState()
@@ -75,6 +76,7 @@ class UnaryOperandState(State):
                 return UnaryOperandState(input, self.value)
             case '=':
                 return ValueState(self.eval(self.operand))
+        return self
 
 
 class ValueState(State):
@@ -85,7 +87,7 @@ class ValueState(State):
 
     def on_input(self, input) -> "State":
         match input:
-            case 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9:
+            case '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9':
                 self.value += str(input)
                 return self
             case 'C':
@@ -105,6 +107,7 @@ class ValueState(State):
                 return self
             case '+' | '-' | '*' | '/':
                 return UnaryOperandState(input, self.value)
+        return self
 
     def __str__(self) -> str:
         return str(self.value)
@@ -114,7 +117,7 @@ class InitialState(State):
 
     def on_input(self, input):
         match input:
-            case 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9:
+            case '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9':
                 return ValueState(input)
         return self
 
