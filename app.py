@@ -1,4 +1,4 @@
-gitfrom model import Calculator
+from model import Calculator
 
 from tkinter import Tk, N, S, E, W, StringVar
 from tkinter import ttk

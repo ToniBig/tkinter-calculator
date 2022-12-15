@@ -38,7 +38,10 @@ class BinaryOperandState(State):
         match input:
             case 'AC':
                 return InitialState()
-            case '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '+/-' | '.':
+            case '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9':
+                self.value_state.on_input(input)
+                return self
+            case '+/-' | '.':
                 self.value_state.on_input(input)
                 return self
             case '+' | '-' | '*' | '/':
